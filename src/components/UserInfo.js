@@ -1,35 +1,56 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import './UserInfo.css';
+import { Actions, AppContext } from '../App';
 
 const UserInfo = ({ user }) => {
-
   const [info, setInfo] = useState(null);
-  const [loadFailedMsg, setLoadFailedMsg] = useState(null);
+  const { dispatch, rateLimitExceeded } = useContext(AppContext);
 
+  /**
+   * Get the detailed information from the API about this user
+   * Note, because this is a demo app and we aren't using any authentication,
+   * after a few page reloads, we'll start getting 403's because we exceed the rate limit.
+   * When that happens, we'll stop bothering with making those requests, and
+   * fall back to only showing avatars and usernames
+   */
   useEffect(() => {
-    if (user) {
+    if (user && !rateLimitExceeded) {
       axios.get(user.url)
         .then(res => setInfo(res.data))
         .catch(e => {
-          console.error(e);
-          setLoadFailedMsg(e);
+          if (e.response.status === 403) {
+            // Let's check the headers to see if we've exceeded the rate limit
+            const { headers } = e.response;
+            const remaining = parseInt(headers['x-ratelimit-remaining']);
+            if (remaining === 0) {
+              // Yup! We exceeded the limit
+              if (headers['x-ratelimit-reset']) {
+                const resetTime = parseInt(headers['x-ratelimit-reset']) * 1000;
+                const countdown = resetTime - Date.now();
+                console.debug(
+                  `%c[RATE_LIMIT] Oops, made too many API calls. We'll have to wait another ${(countdown / 60000).toFixed(1)} minutes before trying again`,
+                  'color: magenta; font-size: 16px'
+                );
+                dispatch({ type: Actions.RateLimitExceeded, payload: true });
+              }
+            }
+          }
         });
     }
-  }, [user]);
+  }, [user, rateLimitExceeded, dispatch]);
 
   return (
-    <div className="user-info">
+    <div className={`user-info ${rateLimitExceeded ? 'show-less' : ''}`}>
       <div className="flex">
-        <h4 title={user.login}>{user.login}</h4>
+        <h4 className="username" title={user.login}>
+          <a className="user-link" href={user.html_url} target="_blank">{user.login}</a>
+        </h4>
         {
           info &&
           <>
-            <h5 title={info.name}>{info.name}</h5>
+            <h5 className="user-desc" title={info.name}>{info.name}</h5>
           </>
-        }
-        {
-          loadFailedMsg &&
-          <p className="error-msg">{loadFailedMsg}</p>
         }
       </div>
       {
@@ -37,7 +58,7 @@ const UserInfo = ({ user }) => {
         <div className="flex">
           {
             info.location &&
-            <div className="flex">
+            <div className="flex user-location">
               {/* SVG Taken from GitHub's markup */}
               <svg className="octicon octicon-location" viewBox="0 0 12 16" version="1.1"
                 width="12" height="16" aria-hidden="true">

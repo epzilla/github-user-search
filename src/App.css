@@ -1,10 +1,52 @@
+:root {
+  --color-default-text: #333;
+  --active-border-color: #2188ff;
+  --active-box-shadow: inset 0 1px 2px rgba(27,31,35,.075), 0 0 0 0.2em rgba(3,102,214,.3);
+  --button-bg-color: #eff3f6;
+  --button-active-bg-color: #e9ecef;
+  --button-bg-image: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
+  --button-active-box-shadow: inset 0 1px 2px rgba(27,31,35,.075), 0 0 0 0.2em rgba(3,102,214,.3), inset 0 0.15em 0.3em rgba(27,31,35,.15);
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+  color: var(--color-default-text);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+input,
+button {
+  -webkit-appearance: none;
+  border-radius: 5px;
+}
+
+input:focus,
+button:focus,
+select:focus,
+textarea:focus,
+a:focus {
+  border-color: var(--active-border-color);
+  box-shadow: var(--active-box-shadow);
+  outline: none;
+}
+
 .App {
-  display: grid;
-  text-align: center;
-  grid-template-rows: 100px 1fr;
   margin: 0 auto;
-  min-height: 100vh;
-  min-width: 80vw;
+  padding: 0 1rem;
   max-width: 900px;
 }
 
@@ -17,52 +59,23 @@ h4, h5 {
   align-items: center;
 }
 
-.search-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.user-search,
-.btn {
-  min-height: 40px;
-  padding: 10px;
-}
-
-.user-search {
-  flex: 1;
-  min-height: 40px;
-  padding: 10px;
-  border: 1px solid #dedede;
-}
-
-.user-search:focus {
-  border-color: #2188ff;
-  box-shadow: inset 0 1px 2px rgba(27,31,35,.075), 0 0 0 0.2em rgba(3,102,214,.3);
-  outline: none;
-}
-
 .btn {
   min-height: 40px;
   margin: 10px;
+  padding: 10px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  background-color: var(--button-bg-color);
+  background-image: var(--button-bg-image);
+  cursor: pointer;
+}
+
+.btn:active {
+  background-image: none;
+  background-color: var(--button-active-bg-color);
+  box-shadow: var(--button-active-box-shadow);
 }
 
 .list-wrapper {
   height: 100%;
-}
-
-.user-list {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-.user-list-item {
-  display: flex;
-  align-items: center;
-}
-
-.avatar {
-  border-radius: 5px;
-  margin: 5px;
 }

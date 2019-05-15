@@ -7,6 +7,7 @@
     "gh-pages": "^2.0.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-paginate": "^6.3.0",
     "react-scripts": "3.0.1",
     "react-virtualized": "^9.21.1"
   },
@@ -33,5 +34,5 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://epzilla.github.io/github-search"
+  "homepage": "https://epzilla.github.io/github-user-search"
 }
