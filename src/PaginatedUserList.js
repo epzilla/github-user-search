@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import Avatar from './Avatar';
 import UserInfo from './UserInfo';
 
-const PaginatedUserList = ({ total, users }) => {
+const PaginatedUserList = ({ total, users, page, pageCount }) => {
   return (
     <>
       <h3>Found {total} {total > 1 ? 'Users' : 'User'}</h3>
