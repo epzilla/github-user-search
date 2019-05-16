@@ -44,7 +44,7 @@ const UserInfo = ({ user }) => {
     <div className={`user-info ${rateLimitExceeded ? 'show-less' : ''}`}>
       <h4 className="flex user-title-block">
         <span className="username" title={user.login}>
-          <a className="user-link" href={user.html_url} target="_blank">{user.login}</a>
+          <a className="user-link" href={user.html_url} target="_blank" rel="noopener noreferrer">{user.login}</a>
         </span>
         {
           info &&

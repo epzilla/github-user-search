@@ -1,26 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Avatar.css';
 
-const Avatar = ({ url, link, altText }) => {
-
-  const [didLoad, setDidLoad] = useState(false);
-  const [loadFailed, setLoadFailed] = useState(false);
-
-  return (
-    <a
-      className="avatar-wrapper"
-      href={link}
-      target="_blank">
-      <img
-        className="avatar"
-        src={url}
-        alt={altText}
-        width={50}
-        onLoad={() => setDidLoad(true)}
-        onError={() => setLoadFailed(true)}
-      />
-    </a>
-  )
-};
+const Avatar = ({ url, link, altText }) => (
+  <a
+    className="avatar-wrapper"
+    href={link}
+    target="_blank"
+    rel="noopener noreferrer">
+    <img
+      className="avatar"
+      src={url}
+      alt={altText}
+      width={50}
+    />
+  </a>
+);
 
 export default Avatar;
