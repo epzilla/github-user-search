@@ -3,21 +3,41 @@
   margin: 0;
 }
 
+.user-title-block {
+  margin: 2px 0 5px 0;
+}
+
+.user-info {
+  margin-left: 5px;
+}
+
 .user-info.show-less .username {
   font-size: 1.25rem;
 }
 
 .user-link {
   text-decoration: none;
-  color: var(--color-default-text);
+  color: #0366d6;
   margin: 0 10px 0 0;
 }
 
 .user-link:hover {
-  border-bottom: 1px solid var(--color-default-text);
+  border-bottom: 1px solid #0366d6;
 }
 
-.user-location {
+.user-extra-info {
+  color: var(--text-grey);
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+.user-extra-info > * {
   flex-shrink: 0;
-  margin-right: 10px;
+  margin-right: 1rem;
+}
+
+.user-bio {
+  color: var(--text-grey);
+  font-size: 14px;
+  margin: 5px 0;
 }

@@ -13,10 +13,14 @@ export const getUsers = async (searchText, currentPage) => {
   let res = await axios.get(url);
   if (res && res.data) {
     let { total_count, items } = res.data;
+
+    // If the total count is > the limit, set pageCount to the max number of pages,
+    // otherwise, calculate it
     let pageCount = 1;
     if (total_count > PER_PAGE) {
       pageCount = total_count > USERS_API_LIMIT ? MAX_PAGES : Math.ceil(total_count / PER_PAGE);
     }
+
     return {
       pageCount,
       currentPage,

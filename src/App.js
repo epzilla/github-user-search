@@ -98,14 +98,19 @@ const App = () => {
           />
           {
             total !== undefined &&
-            <h3>{ total === 0 ? 'Sorry! No users found :(' : getResultHeadline() }</h3>
+            <h3>{
+              total === 0 ?
+                'Sorry! No users found :('
+                :
+                getResultHeadline()
+            }</h3>
           }
         </div>
         {
           !!total &&
           <UserList
-            total={total > USERS_API_LIMIT ? USERS_API_LIMIT : total}
-            exceededUsersLimit={total > USERS_API_LIMIT}
+            total={exceededUsersLimit ? USERS_API_LIMIT : total}
+            exceededUsersLimit={exceededUsersLimit}
             users={users}
             currentPage={currentPage}
             pageCount={pageCount}

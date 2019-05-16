@@ -14,48 +14,54 @@ const UserInfo = ({ user }) => {
    * When that happens, we'll stop bothering with making those requests, and
    * fall back to only showing avatars and usernames
    */
-  // useEffect(() => {
-  //   if (user && !rateLimitExceeded) {
-  //     axios.get(user.url)
-  //       .then(res => setInfo(res.data))
-  //       .catch(e => {
-  //         if (e.response.status === 403) {
-  //           // Let's check the headers to see if we've exceeded the rate limit
-  //           const { headers } = e.response;
-  //           const remaining = parseInt(headers['x-ratelimit-remaining']);
-  //           if (remaining === 0) {
-  //             // Yup! We exceeded the limit
-  //             if (headers['x-ratelimit-reset']) {
-  //               const resetTime = parseInt(headers['x-ratelimit-reset']) * 1000;
-  //               const countdown = resetTime - Date.now();
-  //               console.debug(
-  //                 `%c[RATE_LIMIT] Oops, made too many API calls. We'll have to wait another ${(countdown / 60000).toFixed(1)} minutes before trying again`,
-  //                 'color: magenta;'
-  //               );
-  //               dispatch({ type: Actions.RateLimitExceeded, payload: true });
-  //             }
-  //           }
-  //         }
-  //       });
-  //   }
-  // }, [user, rateLimitExceeded, dispatch]);
+  useEffect(() => {
+    if (user && !rateLimitExceeded) {
+      axios.get(user.url)
+        .then(res => setInfo(res.data))
+        .catch(e => {
+          if (e.response.status === 403) {
+            // Let's check the headers to see if we've exceeded the rate limit
+            const { headers } = e.response;
+            const remaining = parseInt(headers['x-ratelimit-remaining']);
+            if (remaining === 0) {
+              // Yup! We exceeded the limit
+              if (headers['x-ratelimit-reset']) {
+                const resetTime = parseInt(headers['x-ratelimit-reset']) * 1000;
+                const countdown = resetTime - Date.now();
+                console.debug(
+                  `%c[RATE_LIMIT] Oops, made too many API calls. We'll have to wait another ${(countdown / 60000).toFixed(1)} minutes before trying again`,
+                  'color: magenta;'
+                );
+                dispatch({ type: Actions.RateLimitExceeded, payload: true });
+              }
+            }
+          }
+        });
+    }
+  }, [user, rateLimitExceeded, dispatch]);
 
   return (
     <div className={`user-info ${rateLimitExceeded ? 'show-less' : ''}`}>
-      <div className="flex">
-        <h4 className="username" title={user.login}>
+      <h4 className="flex user-title-block">
+        <span className="username" title={user.login}>
           <a className="user-link" href={user.html_url} target="_blank">{user.login}</a>
-        </h4>
+        </span>
         {
           info &&
           <>
-            <h5 className="user-desc" title={info.name}>{info.name}</h5>
+            <span className="user-desc" title={info.name}>{info.name}</span>
           </>
         }
-      </div>
+      </h4>
+      {
+        info && info.bio &&
+        <p className="user-bio">
+          <span>{info.bio}</span>
+        </p>
+      }
       {
         info &&
-        <div className="flex">
+        <div className="flex user-extra-info">
           {
             info.location &&
             <div className="flex user-location">
@@ -70,12 +76,6 @@ const UserInfo = ({ user }) => {
                 ></path>
               </svg>
               <span>{info.location}</span>
-            </div>
-          }
-          {
-            info.bio &&
-            <div className="flex">
-              <span>{info.bio}</span>
             </div>
           }
           {

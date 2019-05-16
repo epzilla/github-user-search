@@ -6,13 +6,16 @@
 
 .user-list-item {
   display: flex;
-  align-items: center;
+  align-items: stretch;
+  padding: 1rem 0;
+  border-top: 1px solid var(--light-border);
 }
 
 .paginated-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   padding-left: 15px;
   padding-right: 15px;
   background-color: #40acfb;
