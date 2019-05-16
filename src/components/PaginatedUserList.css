@@ -15,18 +15,31 @@
   padding-right: 15px;
   background-color: #40acfb;
   color: white;
-  border-radius: 30px;
+  border-radius: 10px;
+  margin: 10px 0;
 }
 
 .paginated-nav li {
   display: inline-flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   margin: 5px;
   padding: 5px;
-  min-width: 30px;
   cursor: pointer;
   border-radius: 30px;
+}
+
+.paginated-nav li.disabled {
+  opacity: 0.4;
+}
+
+.paginated-nav li a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  height: 30px;
+  flex-shrink: 0;
 }
 
 .paginated-nav li a:focus,

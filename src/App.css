@@ -48,6 +48,10 @@ a:focus {
   margin: 0 auto;
   padding: 0 1rem;
   max-width: 900px;
+  display: grid;
+  grid-template-rows: auto 1fr 70px;
+  height: 100vh;
+  overflow: hidden;
 }
 
 h4, h5 {
@@ -77,5 +81,6 @@ h4, h5 {
 }
 
 .list-wrapper {
-  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }

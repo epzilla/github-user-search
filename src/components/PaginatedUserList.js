@@ -1,47 +1,32 @@
 import React from 'react';
 import './PaginatedUserList.css';
-import ReactPaginate from 'react-paginate';
 import Avatar from './Avatar';
 import UserInfo from './UserInfo';
 
-const PaginatedUserList = ({ total, users, currentPage, pageCount, goToPage }) => {
+const PaginatedUserList = ({ users }) => {
   return (
-    <>
-      <h3>Found {total} {total > 1 ? 'Users' : 'User'}</h3>
-      <div className="list-wrapper">
-        <ul className="user-list">
-          {
-            users.map(user => (
-              <li
-                key={user.id}
-                className="user-list-item"
-              >
-                <Avatar
-                  url={user.avatar_url + '&size=50'}
-                  link={user.html_url}
-                  altText={user.login}
-                  title={user.login}
-                />
-                <UserInfo
-                  user={user}
-                />
-              </li>
-            ))
-          }
-        </ul>
+    <div className="list-wrapper">
+      <ul className="user-list">
         {
-          total > users.length &&
-          <ReactPaginate
-            activeClassName="current"
-            activeLinkClassName="focused"
-            containerClassName="paginated-nav"
-            pageCount={pageCount}
-            pageRangeDisplayed={5}
-            onPageChange={goToPage}
-          />
+          users.map(user => (
+            <li
+              key={user.id}
+              className="user-list-item"
+            >
+              <Avatar
+                url={user.avatar_url + '&size=50'}
+                link={user.html_url}
+                altText={user.login}
+                title={user.login}
+              />
+              <UserInfo
+                user={user}
+              />
+            </li>
+          ))
         }
-      </div>
-    </>
+      </ul>
+    </div>
   )
 };
 
