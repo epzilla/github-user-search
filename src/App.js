@@ -3,7 +3,7 @@ import ReactPaginate from 'react-paginate';
 import './App.css';
 import { getUsers, USERS_API_LIMIT, PER_PAGE }from './api';
 import SearchBar from './components/SearchBar';
-import PaginatedUserList from './components/PaginatedUserList';
+import UserList from './components/UserList';
 
 // Action types to be passed to our reducer
 export const Actions = {
@@ -103,7 +103,7 @@ const App = () => {
         </div>
         {
           !!total &&
-          <PaginatedUserList
+          <UserList
             total={total > USERS_API_LIMIT ? USERS_API_LIMIT : total}
             exceededUsersLimit={total > USERS_API_LIMIT}
             users={users}
@@ -129,7 +129,8 @@ const App = () => {
             activeLinkClassName="focused"
             containerClassName="paginated-nav"
             pageCount={pageCount}
-            pageRangeDisplayed={5}
+            pageRangeDisplayed={1}
+            marginPagesDisplayed={3}
             onPageChange={({ selected }) => goToPage(selected + 1)}
           />
         }

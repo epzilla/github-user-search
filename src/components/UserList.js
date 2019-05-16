@@ -1,9 +1,9 @@
 import React from 'react';
-import './PaginatedUserList.css';
+import './UserList.css';
 import Avatar from './Avatar';
 import UserInfo from './UserInfo';
 
-const PaginatedUserList = ({ users }) => {
+const UserList = ({ users }) => {
   return (
     <div className="list-wrapper">
       <ul className="user-list">
@@ -30,4 +30,4 @@ const PaginatedUserList = ({ users }) => {
   )
 };
 
-export default PaginatedUserList;
+export default UserList;
